@@ -1,5 +1,18 @@
-import { render, screen } from 'test/utilities';
+import { render as _render, screen } from 'test/utilities';
 import PackingList from '.';
+import { Provider } from 'react-redux';
+import { createStore } from './store';
+import { PropsWithChildren } from 'react';
+
+const render: typeof _render = (Component, options) => {
+  const store = createStore();
+
+  const Wrapper = ({ children }: PropsWithChildren) => {
+    return <Provider store={store}>{children}</Provider>;
+  };
+
+  return _render(Component, { ...options, wrapper: Wrapper });
+};
 
 it('renders the Packing List application', () => {
   render(<PackingList />);
