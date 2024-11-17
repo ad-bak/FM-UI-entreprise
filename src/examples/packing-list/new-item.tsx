@@ -6,6 +6,11 @@ const NewItem = () => {
   const [newItemName, setNewItemName] = useState('');
   const dispatch = useDispatch();
 
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setNewItemName(value);
+  };
+
   return (
     <form
       id="new-item"
@@ -22,10 +27,11 @@ const NewItem = () => {
         <input
           id="new-item-name"
           className="w-full"
-          type="search"
+          type="text" // Changed from search to text
           placeholder="New Item"
           value={newItemName}
-          onChange={(event) => setNewItemName(event.target.value)}
+          onChange={handleInputChange}
+          data-testid="new-item-input"
         />
         <button
           id="new-item-submit"
@@ -33,6 +39,7 @@ const NewItem = () => {
           disabled={!newItemName}
           aria-label={'Add New Item'}
           type="submit"
+          data-testid="new-item-submit"
         >
           ➕ Add New Item
         </button>
@@ -40,5 +47,4 @@ const NewItem = () => {
     </form>
   );
 };
-
 export default NewItem;
